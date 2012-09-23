@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * Attribution automatically attaches attribution text to fields.
+ *
+ * To use:
+ * - Enable the module.
+ * - Go to admin/config/content/attribution to add your attribution text.
+ * - The text will be automatically added to all body fields (on nodes).
+ * - Use theme/css override techniques to style the attributions text as
+ *   desired.
+ */
+
+
+/**
+ * Implements hook_theme().
+ */
+function attribution_theme() {
+  return array(
+    'attribution_text' => array(
+      'variables' => array('attribution_text' => array()),
+      'file' => 'attribution.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function attribution_permission() {
+  return array(
+    'edit attribution text' => array(
+      'title' => t('Edit attribution text'),
+    ),
+  );
+}
+
+/**
+ * Implement hook_menu().
+ */
+function attribution_menu() {
+  $items = array();
+  $items['admin/config/content/attribution'] = array(
+    'title' => 'Attribution',
+    'description' => 'Edit attribution text',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('attribution_config_form'),
+    'access arguments' => array('edit attribution text'),
+    'file' => 'attribution.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_field_attach_view_alter();
+ */
+function attribution_field_attach_view_alter(&$output, $context) {
+  if ($attribution_text = attribution__get_attribution_text()) {
+    foreach (element_children($output) as $field_name) {
+      if (attribution__add_attribution_text($context['entity_type'], $context['entity']->type, $field_name)) {
+        // Add a dummy element to the #items array, to force the attribution markup
+        // to be rendered.
+        $output['body']['#items'][] = array();
+
+        // Add the attribution markup.
+        $output['body'][1] = array(
+          '#theme' => 'attribution_text',
+          '#attribution_text' => $attribution_text,
+          '#attached' => array(
+            'css' => array(drupal_get_path('module', 'attribution') . '/attribution.css'),
+          ),
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Get the attribution text.
+ *
+ * @return String
+ * The attribution text, passed through the appropriate filter-formatter.
+ */
+function attribution__get_attribution_text() {
+  if ($attribution = variable_get('attribution_text', FALSE)) {
+    return check_markup($attribution['value'], $attribution['format']);
+  }
+  // Fallback: return an empty string if the module is not configured.
+  return '';
+}
+
+/**
+ * Check if attribution text should be added to a particular field.
+ *
+ * @param String $entity_type
+ * The machine-name for the type of entity: e.g. node, profile2.
+ * @param String $bundle_name
+ * The machine-name for the bundle: e.g. page, story.
+ * @param String $field_name
+ * The machine-name for the field: e.g. body, field_event_date.
+ *
+ * @return Boolean.
+ */
+function attribution__add_attribution_text($entity_type, $bundle_name, $field_name) {
+  // @TODO: Make this configurable.
+  // Currently only supports node/***/body.
+  return ($entity_type == 'node' && $field_name == 'body');
+}

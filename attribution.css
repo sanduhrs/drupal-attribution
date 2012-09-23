@@ -1,0 +1,12 @@
+
+footer.attribution_text {
+  font-size: 80%;
+  margin: 0;
+}
+footer.attribution_text a {
+  text-decoration: underline;
+}
+footer.attribution_text a,
+footer.attribution_text {
+  color: #999;
+}
