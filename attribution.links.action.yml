@@ -1,0 +1,5 @@
+entity.attribution_license.add_form:
+  route_name: 'entity.attribution_license.add_form'
+  title: 'Add license'
+  appears_on:
+    - entity.attribution_license.collection

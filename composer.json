@@ -1,0 +1,15 @@
+{
+    "name": "drupal/attribution",
+    "description": "The attribution module.",
+    "type": "drupal-module",
+    "license": "GPL-2-or-later",
+    "authors": [
+        {
+            "name": "Stefan Auditor",
+            "email": "stefan@auditor.email"
+        }
+    ],
+    "require": {
+        "composer/spdx-licenses": "^1.5"
+    }
+}

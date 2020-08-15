@@ -1,0 +1,82 @@
+attribution.attribution_license.*:
+  type: config_entity
+  label: License
+  mapping:
+    id:
+      type: string
+      label: ID
+    identifier:
+      type: string
+      label: Identifier
+    name:
+      type: label
+      label: Name
+    osiCertified:
+      type: bool
+      label: OSI certified
+    deprecated:
+      type: bool
+      label: Deprecated
+    link:
+      type: string
+      label: Link
+block.settings.attribution_attribution:
+  type: block_settings
+  label: 'Attribution'
+  mapping:
+    foo:
+      type: string
+      label: Foo
+
+# Field storage.
+field.storage_settings.attribution_attribution:
+  type: mapping
+  label: Example storage settings
+  mapping:
+    foo:
+      type: string
+      label: Foo
+# Field instance.
+field.field_settings.attribution_attribution:
+  type: mapping
+  label: Example field settings
+  mapping:
+    bar:
+      type: string
+      label: Bar
+# Default value.
+field.value.attribution_attribution:
+  type: mapping
+  label: Default value
+  mapping:
+    source_name:
+      type: string
+      label: Source name
+    source_link:
+      type: uri
+      label: Source link
+    author_name:
+      type: string
+      label: Author name
+    author_link:
+      type: uri
+      label: Author link
+    license:
+      type: string
+      label: License
+# Field widget.
+field.widget.settings.attribution_attribution:
+  type: mapping
+  label: Example widget settings
+  mapping:
+    foo:
+      type: string
+      label: Foo
+# Field formatter.
+field.formatter.settings.attribution_attribution_default:
+  type: mapping
+  label: Example formatter settings
+  mapping:
+    foo:
+      type: string
+      label: Foo

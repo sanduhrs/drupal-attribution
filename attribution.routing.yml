@@ -1,0 +1,31 @@
+entity.attribution_license.collection:
+  path: '/admin/structure/attribution-license'
+  defaults:
+    _entity_list: 'attribution_license'
+    _title: 'License configuration'
+  requirements:
+    _permission: 'administer attribution_license'
+
+entity.attribution_license.add_form:
+  path: '/admin/structure/attribution_license/add'
+  defaults:
+    _entity_form: 'attribution_license.add'
+    _title: 'Add a license'
+  requirements:
+    _permission: 'administer attribution_license'
+
+entity.attribution_license.edit_form:
+  path: '/admin/structure/attribution-license/{attribution_license}'
+  defaults:
+    _entity_form: 'attribution_license.edit'
+    _title: 'Edit a license'
+  requirements:
+    _permission: 'administer attribution_license'
+
+entity.attribution_license.delete_form:
+  path: '/admin/structure/attribution-license/{attribution_license}/delete'
+  defaults:
+    _entity_form: 'attribution_license.delete'
+    _title: 'Delete a license'
+  requirements:
+    _permission: 'administer attribution_license'
