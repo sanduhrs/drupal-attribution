@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Attribution module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function attribution_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.attribution':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Attach an attribution and licensing information to your site and any fieldable entity.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function attribution_theme() {
+  return [
+    'attribution_plain' => [
+      'variables' => [
+        'source' => NULL,
+        'author' => NULL,
+        'license' => NULL,
+        'attributes' => NULL,
+      ],
+    ],
+    'attribution_html' => [
+      'variables' => [
+        'source' => NULL,
+        'author' => NULL,
+        'license' => NULL,
+        'attributes' => NULL,
+      ],
+    ],
+    'attribution_creative_commons' => [
+      'variables' => [
+        'source' => NULL,
+        'author' => NULL,
+        'license' => NULL,
+        'attributes' => NULL,
+      ],
+    ],
+  ];
+}

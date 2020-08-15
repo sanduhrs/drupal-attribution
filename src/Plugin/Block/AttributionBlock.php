@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides an attribution block.
  *
  * @Block(
- *   id = "attribution_attribution",
+ *   id = "attribution",
  *   admin_label = @Translation("Attribution"),
  *   category = @Translation("Legal")
  * )
@@ -108,6 +108,7 @@ class AttributionBlock extends BlockBase implements ContainerFactoryPluginInterf
     /** @var \Drupal\attribution\Entity\AttributionLicense $license */
     $license = AttributionLicense::load($this->configuration['license']);
     $build['content'] = [
+      //phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
       '#markup' => $this->t($this->configuration['disclaimer'], [
         '@name' => $license->getName(),
         '@link' => $license->getLink(),

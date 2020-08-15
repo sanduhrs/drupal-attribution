@@ -13,6 +13,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets the id.
    *
    * @return string
+   *   The id.
    */
   public function getId():string;
 
@@ -30,6 +31,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets the identifier.
    *
    * @return string
+   *   The short identifier.
    */
   public function getIdentifier():string;
 
@@ -37,7 +39,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Sets the identifier.
    *
    * @param string $identifier
-   *   The short license identifier.
+   *   The short identifier.
    *
    * @return $this
    */
@@ -47,6 +49,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets the name.
    *
    * @return string
+   *   The name.
    */
   public function getName():string;
 
@@ -64,6 +67,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets OSI certification status.
    *
    * @return bool
+   *   The certification status.
    */
   public function isOsiCertified():bool;
 
@@ -81,6 +85,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets deprecation status.
    *
    * @return bool
+   *   The deprecation status.
    */
   public function isDeprecated():bool;
 
@@ -98,6 +103,7 @@ interface AttributionLicenseInterface extends ConfigEntityInterface {
    * Gets the link.
    *
    * @return string
+   *   The link.
    */
   public function getLink():string;
 

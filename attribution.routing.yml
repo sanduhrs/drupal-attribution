@@ -2,15 +2,23 @@ entity.attribution_license.collection:
   path: '/admin/structure/attribution-license'
   defaults:
     _entity_list: 'attribution_license'
-    _title: 'License configuration'
+    _title: 'Attribution Licenses'
   requirements:
     _permission: 'administer attribution_license'
 
 entity.attribution_license.add_form:
-  path: '/admin/structure/attribution_license/add'
+  path: '/admin/structure/attribution-license/add'
   defaults:
     _entity_form: 'attribution_license.add'
     _title: 'Add a license'
+  requirements:
+    _permission: 'administer attribution_license'
+
+entity.attribution_license.custom_add_form:
+  path: '/admin/structure/attribution-license/add-custom'
+  defaults:
+    _title: 'Add a license'
+    _form: 'Drupal\attribution\Form\AttributionLicensesForm'
   requirements:
     _permission: 'administer attribution_license'
 

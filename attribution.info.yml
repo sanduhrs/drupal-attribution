@@ -1,6 +1,6 @@
 name: Attribution
 type: module
-description: 'Provides a license configuration entity.'
+description: 'Provides content attribution and license configuration.'
 package: Legal
 core: 8.x
 core_version_requirement: ^8 || ^9

@@ -1,6 +1,6 @@
 {
     "name": "drupal/attribution",
-    "description": "The attribution module.",
+    "description": "Provides content attribution and license configuration.",
     "type": "drupal-module",
     "license": "GPL-2-or-later",
     "authors": [

@@ -1,3 +1,4 @@
+# Config entities.
 attribution.attribution_license.*:
   type: config_entity
   label: License
@@ -20,32 +21,32 @@ attribution.attribution_license.*:
     link:
       type: string
       label: Link
-block.settings.attribution_attribution:
+# Block instance.
+block.settings.attribution:
   type: block_settings
   label: 'Attribution'
   mapping:
-    foo:
+    license:
       type: string
-      label: Foo
-
-# Field storage.
-field.storage_settings.attribution_attribution:
-  type: mapping
-  label: Example storage settings
-  mapping:
-    foo:
+      label: License
+    disclaimer:
       type: string
-      label: Foo
+      label: Disclaimer
 # Field instance.
-field.field_settings.attribution_attribution:
+field.field_settings.attribution:
   type: mapping
-  label: Example field settings
+  label: Attribution field settings
   mapping:
-    bar:
+    default:
       type: string
-      label: Bar
+      label: Default license
+    licenses:
+      type: sequence
+      label: Licenses
+      sequence:
+        type: string
 # Default value.
-field.value.attribution_attribution:
+field.value.attribution:
   type: mapping
   label: Default value
   mapping:
@@ -64,19 +65,3 @@ field.value.attribution_attribution:
     license:
       type: string
       label: License
-# Field widget.
-field.widget.settings.attribution_attribution:
-  type: mapping
-  label: Example widget settings
-  mapping:
-    foo:
-      type: string
-      label: Foo
-# Field formatter.
-field.formatter.settings.attribution_attribution_default:
-  type: mapping
-  label: Example formatter settings
-  mapping:
-    foo:
-      type: string
-      label: Foo

@@ -2,6 +2,7 @@
 
 namespace Drupal\attribution\Plugin\Field\FieldType;
 
+use Drupal\attribution\Entity\AttributionLicense;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
@@ -10,14 +11,14 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Defines the 'attribution_attribution' field type.
+ * Defines the 'attribution' field type.
  *
  * @FieldType(
- *   id = "attribution_attribution",
+ *   id = "attribution",
  *   label = @Translation("Attribution"),
  *   category = @Translation("General"),
- *   default_widget = "attribution_attribution",
- *   default_formatter = "attribution_attribution_default"
+ *   default_widget = "attribution_source_author_license",
+ *   default_formatter = "attribution_creative_commons"
  * )
  */
 class AttributionItem extends FieldItemBase {
@@ -26,20 +27,29 @@ class AttributionItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function defaultFieldSettings() {
-    return ['foo' => 'bar'] + parent::defaultFieldSettings();
+    return [
+        'licenses' => [],
+      ] + parent::defaultFieldSettings();
   }
 
   /**
    * {@inheritdoc}
    */
   public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
-    $settings = $this->getSettings();
-    $element['foo'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Ask for author'),
-      '#default_value' => $settings['foo'],
+    $options = [];
+    /** @var \Drupal\attribution\Entity\AttributionLicense $license */
+    $licenses = AttributionLicense::loadMultiple();
+    foreach ($licenses as $license) {
+      $options[$license->getId()] = $license->getName();
+    }
+    $elements['licenses'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Licenses'),
+      '#default_value' => $this->getSetting('licenses'),
+      '#options' => $options,
+      '#multiple' => TRUE,
     ];
-    return $element;
+    return $elements;
   }
 
   /**
@@ -128,10 +138,15 @@ class AttributionItem extends FieldItemBase {
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $random = new Random();
+    $tlds = [
+      'academy', 'barefoot', 'coffee', 'digital', 'earth', 'foo', 'gives',
+      'host', 'international', 'joy', 'kim', 'lgbt', 'meme', 'ngo', 'online',
+      'pizza', 'qpon', 'rocks', 'software', 'team', 'university', 'vacations',
+      'wtf', 'xyz', 'yoga', 'zone',
+    ];
 
-    $values['source_name'] = $random->word(mt_rand(1, 255));
+    $values['source_name'] = $random->word(mt_rand(3, 10)) . ' ' . $random->word(mt_rand(3, 10));
 
-    $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
     $domain_length = mt_rand(7, 15);
     $protocol = mt_rand(0, 1) ? 'https' : 'http';
     $www = mt_rand(0, 1) ? 'www' : '';
@@ -139,9 +154,8 @@ class AttributionItem extends FieldItemBase {
     $tld = $tlds[mt_rand(0, (count($tlds) - 1))];
     $values['source_link'] = "$protocol://$www.$domain.$tld";
 
-    $values['author_name'] = $random->word(mt_rand(1, 255));
+    $values['author_name'] = $random->word(mt_rand(3, 10)) . ' ' . $random->word(mt_rand(3, 10));
 
-    $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
     $domain_length = mt_rand(7, 15);
     $protocol = mt_rand(0, 1) ? 'https' : 'http';
     $www = mt_rand(0, 1) ? 'www' : '';
@@ -149,8 +163,17 @@ class AttributionItem extends FieldItemBase {
     $tld = $tlds[mt_rand(0, (count($tlds) - 1))];
     $values['author_link'] = "$protocol://$www.$domain.$tld";
 
-    $values['license'] = $random->word(mt_rand(1, 255));
-
+    $licenses = [
+      'CC0-1.0',
+      'CC-BY-4.0',
+      'CC-BY-NC-4.0',
+      'CC-BY-NC-ND-4.0',
+      'CC-BY-NC-SA-4.0',
+      'CC-BY-ND-4.0',
+      'CC-BY-SA-4.0',
+      'GPL-2.0-or-later',
+    ];
+    $values['license'] = $licenses[rand(0, 7)];
     return $values;
   }
 

@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an attribution.
+ *
+ * Available variables:
+ * - source.name: The name of the source.
+ * - source.link: The link to the source.
+ * - author.name: The name of the author.
+ * - author.link: The link to the author.
+ * - license: The associated license.
+ * - license.id: The spdx license short code.
+ * - license.name: The spdx license name.
+ * - license.osiCertified: Is the license OSI certified?
+ * - license.deprecated: Is the license deprecated?
+ * - license.link: The link to the license.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  <p>
+    {% if source %}
+      Source: {{ source|join(', ') }} <br>
+    {% endif %}
+    {% if author %}
+      Author: {{ author|join(', ') }} <br>
+    {% endif %}
+    {% if license %}
+      License: </br>
+    - {{ license.name }}, {{ license.link }} </br>
+      - {{ 'OSI approved:'|trans }} {{ license.osiCertified ? 'Yes' : 'No'|trans }} </br>
+      - {{ 'Deprecated:'|trans }} {{ license.deprecated ? 'Yes' : 'No'|trans }} </br>
+    {% endif %}
+  </p>
+</div>

@@ -94,14 +94,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   protected $link;
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function getId(): string {
     return (string) $this->id;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setId(string $id): AttributionLicenseInterface {
     $this->id = $id;
@@ -109,14 +109,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function getIdentifier(): string {
     return (string) $this->identifier;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setIdentifier(string $identifier): AttributionLicenseInterface {
     $this->identifier = $identifier;
@@ -124,14 +124,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function getName(): string {
     return (string) $this->name;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setName(string $name): AttributionLicenseInterface {
     $this->name = $name;
@@ -139,14 +139,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function isOsiCertified(): bool {
     return (bool) $this->osiCertified;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setOsiCertified(bool $status): AttributionLicenseInterface {
     $this->osiCertified = $status;
@@ -154,14 +154,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function isDeprecated(): bool {
     return (bool) $this->deprecated;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setDeprecated(bool $status): AttributionLicenseInterface {
     $this->deprecated = $status;
@@ -169,14 +169,14 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function getLink(): string {
     return (string) $this->link;
   }
 
   /**
-   * {@inheritdoc }
+   * {@inheritdoc}
    */
   public function setLink(string $link): AttributionLicenseInterface {
     $this->link = $link;

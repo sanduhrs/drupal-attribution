@@ -12,12 +12,12 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
  * Defines the 'attribution' field widget.
  *
  * @FieldWidget(
- *   id = "attribution_license",
- *   label = @Translation("License only"),
+ *   id = "attribution_author_license",
+ *   label = @Translation("Author & License"),
  *   field_types = {"attribution"},
  * )
  */
-class AttributionLicenseWidget extends WidgetBase {
+class AttributionAuthorLicenseWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
@@ -25,7 +25,24 @@ class AttributionLicenseWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_settings = $this->getFieldSettings();
 
-    $options = [];
+    $element['author'] = [
+      '#type' => 'container',
+    ];
+    $element['author']['author_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Author'),
+      '#default_value' => isset($items[$delta]->author_name) ? $items[$delta]->author_name : NULL,
+      '#size' => 20,
+      '#placeholder' => $this->t('First Middle Lastname'),
+    ];
+    $element['author']['author_link'] = [
+      '#type' => 'url',
+      '#title' => $this->t('Link'),
+      '#default_value' => isset($items[$delta]->author_link) ? $items[$delta]->author_link : NULL,
+      '#size' => 20,
+      '#placeholder' => $this->t('https://author.example.org'),
+    ];
+
     /** @var \Drupal\attribution\Entity\AttributionLicense $license */
     $licenses = AttributionLicense::loadMultiple();
     foreach ($licenses as $license) {
@@ -41,6 +58,7 @@ class AttributionLicenseWidget extends WidgetBase {
     $element['#attributes']['class'][] = 'container-inline';
     $element['#attributes']['class'][] = 'attribution-elements';
     $element['#attached']['library'][] = 'attribution/attribution';
+
     return $element;
   }
 
@@ -56,6 +74,18 @@ class AttributionLicenseWidget extends WidgetBase {
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as $delta => $value) {
+      if ($value['author']['author_name'] === '') {
+        $values[$delta]['author']['author_name'] = NULL;
+      }
+      else {
+        $values[$delta]['author_name'] = $values[$delta]['author']['author_name'];
+      }
+      if ($value['author']['author_link'] === '') {
+        $values[$delta]['author']['author_link'] = NULL;
+      }
+      else {
+        $values[$delta]['author_link'] = $values[$delta]['author']['author_link'];
+      }
       if ($value['license'] === '') {
         $values[$delta]['license'] = NULL;
       }

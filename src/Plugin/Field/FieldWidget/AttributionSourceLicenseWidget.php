@@ -12,12 +12,12 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
  * Defines the 'attribution' field widget.
  *
  * @FieldWidget(
- *   id = "attribution_license",
- *   label = @Translation("License only"),
+ *   id = "attribution_source_license",
+ *   label = @Translation("Source & License"),
  *   field_types = {"attribution"},
  * )
  */
-class AttributionLicenseWidget extends WidgetBase {
+class AttributionSourceLicenseWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
@@ -25,7 +25,24 @@ class AttributionLicenseWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_settings = $this->getFieldSettings();
 
-    $options = [];
+    $element['source'] = [
+      '#type' => 'container',
+    ];
+    $element['source']['source_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Source'),
+      '#default_value' => isset($items[$delta]->source_name) ? $items[$delta]->source_name : NULL,
+      '#size' => 20,
+      '#placeholder' => $this->t('Untitled'),
+    ];
+    $element['source']['source_link'] = [
+      '#type' => 'url',
+      '#title' => $this->t('Link'),
+      '#default_value' => isset($items[$delta]->source_link) ? $items[$delta]->source_link : NULL,
+      '#size' => 20,
+      '#placeholder' => $this->t('https://example.org/source'),
+    ];
+
     /** @var \Drupal\attribution\Entity\AttributionLicense $license */
     $licenses = AttributionLicense::loadMultiple();
     foreach ($licenses as $license) {
@@ -41,6 +58,7 @@ class AttributionLicenseWidget extends WidgetBase {
     $element['#attributes']['class'][] = 'container-inline';
     $element['#attributes']['class'][] = 'attribution-elements';
     $element['#attached']['library'][] = 'attribution/attribution';
+
     return $element;
   }
 
@@ -56,6 +74,18 @@ class AttributionLicenseWidget extends WidgetBase {
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as $delta => $value) {
+      if ($value['source']['source_name'] === '') {
+        $values[$delta]['source']['source_name'] = NULL;
+      }
+      else {
+        $values[$delta]['source_name'] = $values[$delta]['source']['source_name'];
+      }
+      if ($value['source']['source_link'] === '') {
+        $values[$delta]['source']['source_link'] = NULL;
+      }
+      else {
+        $values[$delta]['source_link'] = $values[$delta]['source']['source_link'];
+      }
       if ($value['license'] === '') {
         $values[$delta]['license'] = NULL;
       }
