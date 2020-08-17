@@ -31,4 +31,15 @@ class AttributionLicenseListBuilder extends ConfigEntityListBuilder {
     return $row + parent::buildRow($entity);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function render() {
+    $build['intro'] = [
+      '#markup' => '<p>' . $this->t('The following table provides an overview of the installed licenses and whether they are approved by the <a href="https://opensource.org/">Open Source Initiative</a> (OSI) to conform to the <a href="https://opensource.org/docs/osd">Open Source Definition</a> and provide software freedom.') . '</p>',
+    ];
+    $build = $build + parent::render();
+    return $build;
+  }
+
 }
