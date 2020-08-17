@@ -30,18 +30,18 @@ class AttributionHtmlFormatter extends FormatterBase {
       $values = $item->getValue();
       /** @var \Drupal\attribution\Entity\AttributionLicense $license */
       $license = AttributionLicense::load($values['license']);
-      $element[$delta] = [
-        '#theme' => 'attribution_html',
-        "#attributes" => [
-          'class' => [
-            'attribution',
-            'attribution--license-' . $license->getId(),
-            'attribution--license-' . ($license->isOsiCertified() ? 'is-osi-approved' : 'not-osi-approved'),
-            'attribution--license-' . ($license->isDeprecated() ? 'is-deprecated' : 'not-deprecated'),
-          ],
-        ],
-      ];
       if ($license) {
+        $element[$delta] = [
+          '#theme' => 'attribution_html',
+          "#attributes" => [
+            'class' => [
+              'attribution',
+              'attribution--license-' . $license->getId(),
+              'attribution--license-' . ($license->isOsiCertified() ? 'is-osi-approved' : 'not-osi-approved'),
+              'attribution--license-' . ($license->isDeprecated() ? 'is-deprecated' : 'not-deprecated'),
+            ],
+          ],
+        ];
         $element[$delta]["#license"] = $license;
       }
       if ($values['source_name'] || $values['source_link']) {
