@@ -71,7 +71,7 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
       '#type' => 'select',
       '#title' => $this->t('License'),
       '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
-      '#options' => array_intersect_key($options, $field_settings['licenses']),
+      '#options' => $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options,
     ];
     $element['#theme_wrappers'] = ['container', 'form_element'];
     $element['#attributes']['class'][] = 'container-inline';

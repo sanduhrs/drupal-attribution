@@ -44,7 +44,7 @@ class AttributionItem extends FieldItemBase {
     }
     $elements['licenses'] = [
       '#type' => 'select',
-      '#title' => $this->t('Licenses'),
+      '#title' => $this->t('Available licenses'),
       '#default_value' => $this->getSetting('licenses'),
       '#options' => $options,
       '#multiple' => TRUE,
@@ -164,14 +164,14 @@ class AttributionItem extends FieldItemBase {
     $values['author_link'] = "$protocol://$www.$domain.$tld";
 
     $licenses = [
-      'CC0-1.0',
-      'CC-BY-4.0',
-      'CC-BY-NC-4.0',
-      'CC-BY-NC-ND-4.0',
-      'CC-BY-NC-SA-4.0',
-      'CC-BY-ND-4.0',
-      'CC-BY-SA-4.0',
-      'GPL-2.0-or-later',
+      'cc0_1_0',
+      'cc_by_4_0',
+      'cc_by_nc_4_0',
+      'cc_by_nc_nd_4_0',
+      'cc_by_nc_sa_4_0',
+      'cc_by_nd_4_0',
+      'cc_by_sa_4_0',
+      'gpl_2_0_or_later',
     ];
     $values['license'] = $licenses[rand(0, 7)];
     return $values;
