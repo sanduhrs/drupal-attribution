@@ -24,9 +24,16 @@ class AttributionSourceLicenseWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_settings = $this->getFieldSettings();
-
+    $element += [
+      '#type' => 'details',
+      '#summary_attributes' => [],
+      '#open' => TRUE,
+    ];
     $element['source'] = [
       '#type' => 'container',
+      '#attributes' => [
+        'class' => ['container-inline'],
+      ],
     ];
     $element['source']['source_name'] = [
       '#type' => 'textfield',
@@ -52,13 +59,11 @@ class AttributionSourceLicenseWidget extends WidgetBase {
       '#type' => 'select',
       '#title' => $this->t('License'),
       '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
-      '#options' => array_intersect_key($options, $field_settings['licenses']),
+      '#options' => $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options,
+
     ];
-    $element['#theme_wrappers'] = ['container', 'form_element'];
-    $element['#attributes']['class'][] = 'container-inline';
     $element['#attributes']['class'][] = 'attribution-elements';
     $element['#attached']['library'][] = 'attribution/attribution';
-
     return $element;
   }
 

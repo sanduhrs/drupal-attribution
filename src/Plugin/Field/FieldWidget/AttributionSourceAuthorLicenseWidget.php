@@ -24,9 +24,16 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_settings = $this->getFieldSettings();
-
+    $element += [
+      '#type' => 'details',
+      '#summary_attributes' => [],
+      '#open' => TRUE,
+    ];
     $element['source'] = [
       '#type' => 'container',
+      '#attributes' => [
+        'class' => ['container-inline'],
+      ],
     ];
     $element['source']['source_name'] = [
       '#type' => 'textfield',
@@ -42,9 +49,11 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
       '#size' => 20,
       '#placeholder' => $this->t('https://example.org/source'),
     ];
-
     $element['author'] = [
       '#type' => 'container',
+      '#attributes' => [
+        'class' => ['container-inline'],
+      ],
     ];
     $element['author']['author_name'] = [
       '#type' => 'textfield',
@@ -67,17 +76,20 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
       $options[$license->getId()] = $license->getName();
     }
 
+    $options = $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options;
+    if (!$this->fieldDefinition->isRequired()) {
+      $options = [
+        '' => $this->t('- Please choose -'),
+      ] + $options;
+    }
     $element['license'] = [
       '#type' => 'select',
       '#title' => $this->t('License'),
       '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
-      '#options' => $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options,
+      '#options' => $options,
     ];
-    $element['#theme_wrappers'] = ['container', 'form_element'];
-    $element['#attributes']['class'][] = 'container-inline';
     $element['#attributes']['class'][] = 'attribution-elements';
     $element['#attached']['library'][] = 'attribution/attribution';
-
     return $element;
   }
 

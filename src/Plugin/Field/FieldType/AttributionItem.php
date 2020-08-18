@@ -28,8 +28,8 @@ class AttributionItem extends FieldItemBase {
    */
   public static function defaultFieldSettings() {
     return [
-        'licenses' => [],
-      ] + parent::defaultFieldSettings();
+      'licenses' => [],
+    ] + parent::defaultFieldSettings();
   }
 
   /**
