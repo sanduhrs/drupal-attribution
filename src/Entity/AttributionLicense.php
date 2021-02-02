@@ -56,42 +56,42 @@ class AttributionLicense extends ConfigEntityBase implements AttributionLicenseI
    *
    * @var string
    */
-  protected $id;
+  public $id;
 
   /**
    * The short license identifier.
    *
    * @var string
    */
-  protected $identifier;
+  public $identifier;
 
   /**
    * The full license name.
    *
    * @var string
    */
-  protected $name;
+  public $name;
 
   /**
    * Osi certification status.
    *
    * @var bool
    */
-  protected $osiCertified;
+  public $osiCertified;
 
   /**
    * Deprecation status.
    *
    * @var bool
    */
-  protected $deprecated;
+  public $deprecated;
 
   /**
    * Link to the license text.
    *
    * @var string
    */
-  protected $link;
+  public $link;
 
   /**
    * {@inheritdoc}
