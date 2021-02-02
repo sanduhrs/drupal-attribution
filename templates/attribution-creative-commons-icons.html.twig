@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an attribution.
+ *
+ * Available variables:
+ * - source.name: The name of the source.
+ * - source.link: The link to the source.
+ * - author.name: The name of the author.
+ * - author.link: The link to the author.
+ * - license: The associated license.
+ * - license.id: The spdx license short code.
+ * - license.name: The spdx license name.
+ * - license.osiCertified: Is the license OSI certified?
+ * - license.deprecated: Is the license deprecated?
+ * - license.link: The link to the license.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set version = '' %}
+<div class="attribution--license-icons">
+  <a rel="license" href="{{ license.link }}" title="{{ license.name }}">
+    {% set features = license.identifier|split('-') %}
+    {% for feature in features %}
+      {% if feature matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
+        {% set version = feature %}
+        <i class="cc-icon-cc-version"><span>{{ feature|upper }}</span></i>
+      {% else %}
+        {% if version == '' %}
+          {% if features[loop.index] matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}{% set last = true %}{% endif %}
+          <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>{% if last != true and loop.first != 1 and loop.last != 1 %}-{% endif %}
+        {% elseif version != ''  %}
+          <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </a>
+</div>

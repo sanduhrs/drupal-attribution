@@ -51,5 +51,13 @@ function attribution_theme() {
         'attributes' => NULL,
       ],
     ],
+    'attribution_creative_commons_icons' => [
+      'variables' => [
+        'source' => NULL,
+        'author' => NULL,
+        'license' => NULL,
+        'attributes' => NULL,
+      ],
+    ],
   ];
 }
