@@ -13,10 +13,10 @@ attribution.attribution_license.*:
       type: label
       label: Name
     osiCertified:
-      type: bool
+      type: boolean
       label: OSI certified
     deprecated:
-      type: bool
+      type: boolean
       label: Deprecated
     link:
       type: string
