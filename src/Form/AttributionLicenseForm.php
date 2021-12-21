@@ -22,12 +22,16 @@ class AttributionLicenseForm extends EntityForm {
       '#title' => $this->t('Name'),
       '#maxlength' => 255,
       '#default_value' => $this->entity->getName(),
-      '#description' => $this->t('Name for the license.'),
+      '#description' => $this->t('The human readable license name.'),
       '#required' => TRUE,
     ];
     $form['identifier'] = [
       '#type' => 'textfield',
+      '#title' => $this->t('Identifier'),
+      '#maxlength' => 255,
       '#default_value' => $this->entity->getIdentifier(),
+      '#description' => $this->t('Shorthand for the license name.'),
+      '#required' => TRUE,
     ];
     $form['id'] = [
       '#type' => 'machine_name',
@@ -55,7 +59,7 @@ class AttributionLicenseForm extends EntityForm {
       '#title' => $this->t('Link'),
       '#maxlength' => 255,
       '#default_value' => $this->entity->getLink(),
-      '#description' => $this->t('Link to the license.'),
+      '#description' => $this->t('License URI, if applicable.'),
     ];
     return $form;
   }
