@@ -35,5 +35,9 @@
         {% endif %}
       {% endif %}
     {% endfor %}
+
+    {% if author.link %}
+      <a href="{{ author.link }}">{{ author.name }}</a>
+    {% endif %}
   </a>
 </div>
