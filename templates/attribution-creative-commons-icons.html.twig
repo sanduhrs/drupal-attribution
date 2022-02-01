@@ -22,19 +22,22 @@
 <div class="attribution--license-icons">
   <a rel="license" href="{{ license.link }}" title="{{ license.name }}">
     {% set features = license.identifier|split('-') %}
-    {% for feature in features %}
-      {% if feature matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
-        {% set version = feature %}
-        <i class="cc-icon-cc-version"><span>{{ feature|upper }}</span></i>
-      {% else %}
-        {% if version == '' %}
-          {% if features[loop.index] matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}{% set last = true %}{% endif %}
-          <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>{% if last != true and loop.first != 1 and loop.last != 1 %}-{% endif %}
-        {% elseif version != ''  %}
-          <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>
+
+    {% apply spaceless %}
+      {% for feature in features %}
+        {% if feature matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
+          {% set version = feature %}
+          <i class="cc-icon-cc-version">&nbsp;<span>{{ feature|upper }}</span></i>
+        {% else %}
+          {% if version == '' %}
+            {% if features[loop.index] matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}{% set last = true %}{% endif %}
+            <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i><b>{% if last != true and loop.first != 1 and loop.last != 1 %}-{% else %}&nbsp;{% endif %}</b>
+          {% elseif version != ''  %}
+            <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    {% endfor %}
+      {% endfor %}
+    {% endapply %}
 
     {% if author.link %}
       <a href="{{ author.link }}">{{ author.name }}</a>
