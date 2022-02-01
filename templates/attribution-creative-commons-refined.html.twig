@@ -23,14 +23,17 @@
     {{ 'Licensed under'|trans }} <a href="{{ license.link }}">{{ license.name }}</a>.
 
     {% if author.link %}
-      {{ 'by'|trans }} <a href="{{ author.link }}">{{ author.name }}</a>
+      {{ 'by'|trans }} <a href="{{ author.link }}">{% if author.name %}{{ author.name }}{% else %}{{ author.link }}{% endif %}</a>
     {% elseif author.name %}
       {{ 'by'|trans }} "{{ author.name }}"
     {% endif %}
 
-    {{ 'at'|trans }}
+    {% if source.link or source.name %}
+      {{ 'at'|trans }}
+    {% endif %}
+
     {% if source.link %}
-      <a href="{{ source.link }}">{{ source.name }}</a>
+      <a href="{{ source.link }}">{% if source.name %}{{ source.name }}{% else %}{{ source.link }}{% endif %}</a>
     {% elseif source.name %}
       "{{ source.name }}"
     {% endif %}

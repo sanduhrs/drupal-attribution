@@ -22,13 +22,13 @@
   {% if source or author or license %}
     {{ 'This work'|trans }}
     {% if source.link %}
-      <a href="{{ source.link }}">{{ source.name }}</a>
+      <a href="{{ source.link }}">{% if source.name %}{{ source.name }}{% else %}{{ source.link }}{% endif %}</a>
     {% elseif source.name %}
       "{{ source.name }}"
     {% endif %}
 
     {% if author.link %}
-      {{ 'by'|trans }} <a href="{{ author.link }}">{{ author.name }}</a>
+      {{ 'by'|trans }} <a href="{{ author.link }}">{% if author.name %}{{ author.name }}{% else %}{{ author.link }}{% endif %}</a>
     {% elseif author.name %}
       {{ 'by'|trans }} "{{ author.name }}"
     {% endif %}
