@@ -2,3 +2,7 @@ attribution_attribution:
   css:
     component:
       css/attribution-widget.css: {}
+attribution_creative_commons_icons:
+  css:
+    component:
+      css/attribution-creative-commons-icons.css: {}
