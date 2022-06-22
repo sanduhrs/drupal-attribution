@@ -20,21 +20,19 @@
 #}
 <div{{ attributes }}>
   {% if source or author or license %}
-    {{ 'Licensed under'|trans }} <a href="{{ license.link }}">{{ license.name }}</a>.
+    {{ 'Licensed under'|trans }} <a href="{{ license.link }}">{{ license.name }}</a>
 
     {% if author.link %}
       {{ 'by'|trans }} <a href="{{ author.link }}">{% if author.name %}{{ author.name }}{% else %}{{ author.link }}{% endif %}</a>
     {% elseif author.name %}
-      {{ 'by'|trans }} "{{ author.name }}"
-    {% endif %}
-
-    {% if source.link or source.name %}
-      {{ 'at'|trans }}
+      {{ 'by'|trans }} {{ author.name }}
     {% endif %}
 
     {% if source.link %}
+      {{ 'as'|trans }}
       <a href="{{ source.link }}">{% if source.name %}{{ source.name }}{% else %}{{ source.link }}{% endif %}</a>
     {% elseif source.name %}
+      {{ 'at'|trans }}
       "{{ source.name }}"
     {% endif %}
   {% endif %}

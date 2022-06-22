@@ -30,9 +30,9 @@
     {% if author.link %}
       {{ 'by'|trans }} <a href="{{ author.link }}">{% if author.name %}{{ author.name }}{% else %}{{ author.link }}{% endif %}</a>
     {% elseif author.name %}
-      {{ 'by'|trans }} "{{ author.name }}"
+      {{ 'by'|trans }} {{ author.name }}
     {% endif %}
 
-    {{ 'is licensed under a'|trans }} <a href="{{ license.link }}">{{ license.name }}</a>.
+    {{ 'is licensed under'|trans }} <a href="{{ license.link }}">{{ license.name }}</a>.
   {% endif %}
 </div>
