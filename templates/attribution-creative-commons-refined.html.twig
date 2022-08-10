@@ -29,10 +29,10 @@
     {% endif %}
 
     {% if source.link %}
-      {{ 'as'|trans }}
+      {{ 'at'|trans }}
       <a href="{{ source.link }}">{% if source.name %}{{ source.name }}{% else %}{{ source.link }}{% endif %}</a>
     {% elseif source.name %}
-      {{ 'at'|trans }}
+      {{ 'as'|trans }}
       "{{ source.name }}"
     {% endif %}
   {% endif %}
