@@ -28,11 +28,11 @@ class AttributionCreativeCommonsIconsFormatter extends FormatterBase {
     /** @var \Drupal\attribution\Plugin\Field\FieldType\AttributionItem $item */
     foreach ($items as $delta => $item) {
       $values = $item->getValue();
-      /** @var \Drupal\attribution\Entity\AttributionLicense $license */
-      $license = AttributionLicense::load($values['license']);
-      $element[$delta] = [
-        '#theme' => 'attribution_creative_commons_icons',
-        "#attributes" => [
+      $element[$delta]['#theme'] = 'attribution_creative_commons_icons';
+      if ($values['license']) {
+        /** @var \Drupal\attribution\Entity\AttributionLicense $license */
+        $license = AttributionLicense::load($values['license']);
+        $element[$delta]["#attributes"] = [
           'class' => [
             'attribution',
             'attribution--license-icons',
@@ -40,10 +40,9 @@ class AttributionCreativeCommonsIconsFormatter extends FormatterBase {
             'attribution--license-' . ($license->isOsiCertified() ? 'is-osi-approved' : 'not-osi-approved'),
             'attribution--license-' . ($license->isDeprecated() ? 'is-deprecated' : 'not-deprecated'),
           ],
-        ],
-      ];
-      $element[$delta]["#license"] = $license;
-
+        ];
+        $element[$delta]["#license"] = $license;
+      }
       if ($values['source_name'] || $values['source_link']) {
         $element[$delta]['#source'] = [
           'name' => $values['source_name'],
