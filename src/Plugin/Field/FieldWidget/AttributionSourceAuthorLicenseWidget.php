@@ -38,14 +38,14 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
     $element['source']['source_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Source'),
-      '#default_value' => isset($items[$delta]->source_name) ? $items[$delta]->source_name : NULL,
+      '#default_value' => $items[$delta]->source_name ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('Untitled'),
     ];
     $element['source']['source_link'] = [
       '#type' => 'url',
       '#title' => $this->t('Link'),
-      '#default_value' => isset($items[$delta]->source_link) ? $items[$delta]->source_link : NULL,
+      '#default_value' => $items[$delta]->source_link ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('https://example.org/source'),
     ];
@@ -58,14 +58,14 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
     $element['author']['author_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Author'),
-      '#default_value' => isset($items[$delta]->author_name) ? $items[$delta]->author_name : NULL,
+      '#default_value' => $items[$delta]->author_name ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('First Middle Lastname'),
     ];
     $element['author']['author_link'] = [
       '#type' => 'url',
       '#title' => $this->t('Link'),
-      '#default_value' => isset($items[$delta]->author_link) ? $items[$delta]->author_link : NULL,
+      '#default_value' => $items[$delta]->author_link ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('https://author.example.org'),
     ];
@@ -85,7 +85,7 @@ class AttributionSourceAuthorLicenseWidget extends WidgetBase {
     $element['license'] = [
       '#type' => 'select',
       '#title' => $this->t('License'),
-      '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
+      '#default_value' => $items[$delta]->license ?? NULL,
       '#options' => $options,
     ];
     $element['#attributes']['class'][] = 'attribution-elements';

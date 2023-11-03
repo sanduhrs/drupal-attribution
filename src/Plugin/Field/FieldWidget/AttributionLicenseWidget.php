@@ -38,7 +38,7 @@ class AttributionLicenseWidget extends WidgetBase {
     $element['license'] = [
       '#type' => 'select',
       '#title' => $this->t('License'),
-      '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
+      '#default_value' => $items[$delta]->license ?? NULL,
       '#options' => $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options,
 
     ];

@@ -38,14 +38,14 @@ class AttributionSourceLicenseWidget extends WidgetBase {
     $element['source']['source_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Source'),
-      '#default_value' => isset($items[$delta]->source_name) ? $items[$delta]->source_name : NULL,
+      '#default_value' => $items[$delta]->source_name ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('Untitled'),
     ];
     $element['source']['source_link'] = [
       '#type' => 'url',
       '#title' => $this->t('Link'),
-      '#default_value' => isset($items[$delta]->source_link) ? $items[$delta]->source_link : NULL,
+      '#default_value' => $items[$delta]->source_link ?? NULL,
       '#size' => 20,
       '#placeholder' => $this->t('https://example.org/source'),
     ];
@@ -58,7 +58,7 @@ class AttributionSourceLicenseWidget extends WidgetBase {
     $element['license'] = [
       '#type' => 'select',
       '#title' => $this->t('License'),
-      '#default_value' => isset($items[$delta]->license) ? $items[$delta]->license : NULL,
+      '#default_value' => $items[$delta]->license ?? NULL,
       '#options' => $field_settings['licenses'] ? array_intersect_key($options, $field_settings['licenses']) : $options,
 
     ];

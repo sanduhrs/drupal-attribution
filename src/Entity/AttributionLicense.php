@@ -2,8 +2,8 @@
 
 namespace Drupal\attribution\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\attribution\AttributionLicenseInterface;
+use Drupal\Core\Config\Entity\ConfigEntityBase;
 
 /**
  * Defines the license entity type.
