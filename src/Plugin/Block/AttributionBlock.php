@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Legal")
  * )
  */
-class AttributionBlock extends BlockBase implements ContainerFactoryPluginInterface {
+final class AttributionBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager.

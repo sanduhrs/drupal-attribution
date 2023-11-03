@@ -7,11 +7,39 @@ use Drupal\attribution\Entity\AttributionLicense;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Transliteration\PhpTransliteration;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a Attribution form.
  */
-class AttributionLicensesForm extends FormBase {
+final class AttributionLicensesForm extends FormBase {
+
+  /**
+   * The transliteration service.
+   *
+   * @var \Drupal\Core\Transliteration\PhpTransliteration
+   */
+  protected $transliteration;
+
+  /**
+   * Constructs the form object.
+   *
+   * @param \Drupal\Core\Transliteration\PhpTransliteration $transliteration
+   *   The transliteration service.
+   */
+  public function __construct(PhpTransliteration $transliteration) {
+    $this->transliteration = $transliteration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new self(
+      $container->get('transliteration')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -96,7 +124,7 @@ class AttributionLicensesForm extends FormBase {
    * @see \Drupal\system\MachineNameController::transliterate()
    */
   protected function getMachineName($string) {
-    $transliterated = \Drupal::transliteration()
+    $transliterated = $this->transliteration
       ->transliterate($string, LanguageInterface::LANGCODE_DEFAULT, '_');
     $transliterated = mb_strtolower($transliterated);
 
