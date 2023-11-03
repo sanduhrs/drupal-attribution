@@ -2,32 +2,32 @@
 
 .attribution--license-icons {
   /*  font-size 10px is closer to original but not accessible */
-  font-size: smaller;
-  box-sizing: border-box;
   position: relative;
   display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
   width: auto;
   height: calc(1rem + 4px);
-  overflow: hidden;
-  background-color: #000;
   border: 1px solid #000;
   border-radius: 1px;
+  background-color: #000;
+  font-size: smaller;
   font-weight: bold;
 }
 
 .attribution--license-icons a {
-  box-sizing: content-box;
   display: flex;
   align-items: center;
-  border: 1px solid #fff;
+  box-sizing: content-box;
   height: 1rem;
+  border: 1px solid #fff;
 }
 
 .attribution--license-icons i {
   padding: .125rem 0 0;
-  line-height: 1rem;
   color: #fff;
   font-style: normal;
+  line-height: 1rem;
 }
 
 .attribution--license-icons i:last-child {
@@ -36,31 +36,33 @@
 
 .attribution--license-icons .cc-icon-cc-cc {
   position: relative;
-  left: -.25rem;
-  top: -.0rem;
+  /* stylelint-disable */
+  top: -0.0rem;
+  left: -0.25rem;
+  /* stylelint-enable */
   display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
-  height: 2rem;
+  align-items: center;
+  justify-content: center;
   width: 2rem;
-  border-radius: 50%;
-  text-align: center;
+  height: 2rem;
   margin-right: .25rem;
-  background-color: #aaa;
   padding: .25rem;
+  text-align: center;
   color: #000;
+  border-radius: 50%;
+  background-color: #aaa;
 }
 
 .attribution--license-icons .cc-icon-cc-cc span {
   display: inline-block;
-  height: 1.25rem;
   width: 1.5rem;
+  height: 1.25rem;
+  padding: .35rem 0 0;
+  text-align: center;
   border: 2px solid #000;
   border-radius: 50%;
-  padding: .35rem 0 0;
   background-color: #fff;
-  text-align: center;
   font-weight: bold;
 }
 
