@@ -6,3 +6,9 @@ attribution_creative_commons_icons:
   css:
     component:
       css/attribution-creative-commons-icons.css: {}
+drupal.attribution-icon:
+  css:
+    theme:
+      css/attribution.icon.theme.css: {}
+  dependencies:
+    - field_ui/drupal.field_ui.manage_fields

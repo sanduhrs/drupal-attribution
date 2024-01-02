@@ -5,6 +5,7 @@
  * Primary module hooks for Attribution module.
  */
 
+use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -68,4 +69,11 @@ function attribution_theme() {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_field_type_category_info_alter().
+ */
+function attribution_field_type_category_info_alter(&$definitions) {
+  $definitions[FieldTypeCategoryManagerInterface::FALLBACK_CATEGORY]['libraries'][] = 'attribution/drupal.attribution-icon';
 }
