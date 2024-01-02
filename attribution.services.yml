@@ -1,0 +1,6 @@
+services:
+  attribution.copyright_subscriber:
+    class: Drupal\attribution\EventSubscriber\WebfingerAttributionSubscriber
+    arguments: ['@current_user', '@entity_type.manager', '@logger.channel.webfinger']
+    tags:
+      - { name: 'event_subscriber' }
