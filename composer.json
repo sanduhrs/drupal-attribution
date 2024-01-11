@@ -10,7 +10,6 @@
         }
     ],
     "require": {
-        "composer/spdx-licenses": "^1.5",
-        "drupal/webfinger": "^2.0"
+        "composer/spdx-licenses": "^1.5"
     }
 }
