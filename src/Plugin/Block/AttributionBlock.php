@@ -5,8 +5,10 @@ namespace Drupal\attribution\Plugin\Block;
 use Drupal\attribution\Entity\AttributionLicense;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Utility\Token;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,6 +30,20 @@ final class AttributionBlock extends BlockBase implements ContainerFactoryPlugin
   protected $entityTypeManager;
 
   /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandler
+   */
+  protected $moduleHandler;
+
+  /**
+   * The token service.
+   *
+   * @var \Drupal\Core\Utility\Token
+   */
+  protected $token;
+
+  /**
    * Constructs a new AttributionBlock instance.
    *
    * @param array $configuration
@@ -41,10 +57,22 @@ final class AttributionBlock extends BlockBase implements ContainerFactoryPlugin
    *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Extension\ModuleHandler $module_handler
+   *   The module handler service.
+   * @param \Drupal\Core\Utility\Token $token
+   *   The token service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+      array $configuration,
+      $plugin_id,
+      $plugin_definition,
+      EntityTypeManagerInterface $entity_type_manager,
+      ModuleHandler $module_handler,
+      Token $token) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
+    $this->moduleHandler = $module_handler;
+    $this->token = $token;
   }
 
   /**
@@ -55,7 +83,9 @@ final class AttributionBlock extends BlockBase implements ContainerFactoryPlugin
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('module_handler'),
+      $container->get('token')
     );
   }
 
@@ -90,6 +120,16 @@ final class AttributionBlock extends BlockBase implements ContainerFactoryPlugin
       '#title' => $this->t('Disclaimer'),
       '#default_value' => $this->configuration['disclaimer'],
     ];
+    if ($this->moduleHandler->moduleExists('token')) {
+      $form['disclaimer'] += [
+        '#element_validate' => ['token_element_validate'],
+        '#token_types' => [],
+      ];
+      $form['token_help'] = [
+        '#theme' => 'token_tree_link',
+        '#token_types' => [],
+      ];
+    }
     return $form;
   }
 
@@ -107,12 +147,14 @@ final class AttributionBlock extends BlockBase implements ContainerFactoryPlugin
   public function build() {
     /** @var \Drupal\attribution\Entity\AttributionLicense $license */
     $license = AttributionLicense::load($this->configuration['license']);
+    //phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $disclaimer = $this->t($this->configuration['disclaimer'], [
+      '@name' => $license->getName(),
+      '@link' => $license->getLink(),
+    ]);
+    $disclaimer = $this->token->replace($disclaimer, []);
     $build['content'] = [
-      //phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
-      '#markup' => $this->t($this->configuration['disclaimer'], [
-        '@name' => $license->getName(),
-        '@link' => $license->getLink(),
-      ]),
+      '#markup' => $disclaimer,
     ];
     return $build;
   }
