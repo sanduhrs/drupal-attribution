@@ -36,6 +36,14 @@ function attribution_theme() {
         'attributes' => NULL,
       ],
     ],
+    'attribution_plain_oneline' => [
+      'variables' => [
+        'source' => NULL,
+        'author' => NULL,
+        'license' => NULL,
+        'attributes' => NULL,
+      ],
+    ],
     'attribution_html' => [
       'variables' => [
         'source' => NULL,
