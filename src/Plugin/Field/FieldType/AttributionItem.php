@@ -17,7 +17,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "attribution",
  *   label = @Translation("Attribution"),
  *   description = @Translation("Field to store author and license attribution."),
- *   category = @Translation("General"),
+ *   category = "general",
  *   default_widget = "attribution_source_author_license",
  *   default_formatter = "attribution_creative_commons"
  * )
